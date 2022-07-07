@@ -1,0 +1,13 @@
+###### Requirements without Version Specifiers ######
+numpy
+pandas
+tensorflow
+sklearn
+keras
+keras_tuner
+scipy
+cuda
+sys
+argparse
+
+###### Requirements with Version Specifiers ######
