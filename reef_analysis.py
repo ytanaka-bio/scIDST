@@ -108,5 +108,7 @@ result = []
 for x in range(0,args.run):
     result.append(np.array(run_reef(dataframe, dindex, feature, args.iter, args.ratio_test, args.ratio_val)))
 
-pd.DataFrame(result).transpose().to_csv(output)
+result = pd.DataFrame(result).transpose()
+result.index = dataframe.index
+result.to_csv(output)
 
