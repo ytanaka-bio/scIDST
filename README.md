@@ -5,6 +5,13 @@ scIDST is designed to identify progressive disease states of individual cells fr
 ## Requirement
 Tensorflow
 
+## How to start
+```{r eval=FALSE}
+git clone https://github.com/ytanaka-bio/scIDST
+cd scIDST
+pip install -r requirements.txt
+```
+
 ## How to use
 1. Dimensional Reduction
 2. Convertion of binary label into probablistic label
