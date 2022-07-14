@@ -20,6 +20,20 @@ pip install -r requirements.txt --user
 3-1. Evaluation
 3-2. Training
 3-3. Prediction
+
+#Tips
+```{r eval=FALSE}
+> head(label)
+                     disease age sex
+AAACAGCCAACGTGCT-1_1       0   1   1
+AAACAGCCACAACAAA-1_1       0   1   1
+AAACATGCAATAACGA-1_1       0   1   1
+AAACCGAAGGACCGCT-1_1       0   1   1
+AAACCGAAGTGTTGTA-1_1       0   1   1
+AAACCGCGTTACATCC-1_1       0   1   1
+> write.table(label,"label.csv",sep=",",quote=F,col.names=F)
+```
+
 ## Citation
 Paper in preparation
 
