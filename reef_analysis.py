@@ -40,10 +40,10 @@ import pandas as pd
 from scipy.stats import zscore
 from sklearn.model_selection import train_test_split
 
-dataframe = pd.read_csv(datafile)
-dataframe = dataframe.apply(zscore)
+dataframe = pd.read_csv(datafile,index_col=0)
+#dataframe = dataframe.apply(zscore)
 dindex = dataframe.columns
-dataout = pd.read_csv(phenofile)
+dataout = pd.read_csv(phenofile,index_col=0)
 dataframe = dataframe.combine_first(dataout)
 
 def run_reef(dataframe,dindex,label,iter=50, t_size=0.2, v_size=0.2):
