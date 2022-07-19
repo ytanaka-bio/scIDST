@@ -56,4 +56,5 @@ AAACCGCGTTACATCC-1_1       0   1   1
 Paper in preparation
 
 ## Reference
+L. Adams, M.K. Song, Y. Tanaka# and Y.-S. Kim#, Single-nuclei paired multiomic analysis of young, aged, and Parkinson's disease human midbrain reveals age-associated glial changes and their contribution to Parkinson's disease, [medRxiv](https://www.medrxiv.org/content/10.1101/2022.01.18.22269350v4), #Co-corresponding authors
 P. Varma, C. Re, Snuba: automating weak supervision to label training data. Processings of VLDB Endowment 12, 223-236 (2018). [PubMed](https://pubmed.ncbi.nlm.nih.gov/31777681/)
