@@ -9,20 +9,21 @@ parser = argparse.ArgumentParser(description='Dimensional reduction with autoenc
 
 parser.add_argument('-e', help='epoch for best hyperparameter configuations', default=10, type=int, dest="epoch")
 parser.add_argument('-x', help='Total number of trials for random search tuner', default=100, type=int, dest="max_trial")
-parser.add_argument('-d', help='directory for autoencoder', default='./autoencoder', type=str, dest="dir")
+parser.add_argument('-d', help='directory for autoencoder optimization', default='./autoencoder', type=str, dest="dir")
 parser.add_argument('-p', help='project name', default='autoencoder', type=str,dest="proj")
 parser.add_argument('-v', help='ratio of validation dataset', default=0.2, type=float,dest="ratio_val")
 parser.add_argument('-t', help="number of threads",default=1,type=int,dest="thread")
-parser.add_argument('-r', help="Type of dimensional reduction (0 if PCA, 1 if autoencoder)",default=1, type=int, dest="dim_type")
+parser.add_argument('-r', help="mode (1 if optimize autoencoder, 0 if use existing autoencoder)",default=1, type=int, dest="dim_type")
 parser.add_argument('data_dir',nargs=1,help='cellranger matrix directory',type=str)
 parser.add_argument('output',nargs=1,help='output filename',type=str)
+parser.add_argument('model_file', nargs=1,help='directory of autoencoder model (output file with -r 1, input file with -r 0)',type=str)
 
 args = parser.parse_args()
 
 #Type of dimensional reduction
-dim_type = args.dim_type # 0 if PCA, 1 if autoencoder
+dim_type = args.dim_type 
 if dim_type != 0 and dim_type != 1:
-    sys.exit("Type of dimensional reduction should be 0 (PCA) or 1 (Autoencoder)")
+    sys.exit("Type of dimensional reduction should be 1 (Autoencoder optimization) or 0 (Existing autoencoder)")
 
 #run main
 import os, psutil
@@ -38,7 +39,6 @@ from tensorflow.keras.layers import Dense
 from tensorflow.keras.models import Model
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
-from sklearn.decomposition import PCA
 import keras_tuner as kt
 from scipy.io import mmread
 from scipy.stats import zscore
@@ -59,20 +59,6 @@ scRNA.index = barcode.loc[:,0]
 
 
 #define functions
-def PCA_reduction_presplit(reduced_dim, dataset):
-# PCA REDUCTION
-    # scaling
-    scaler = StandardScaler()
-    scaler.fit(dataset)
-    scaled_df = scaler.transform(dataset)
-    # dim reduct
-    pca = PCA(n_components= reduced_dim)
-    pca.fit(scaled_df)
-    df_pca = pca.transform(scaled_df)
-    # convert to df
-    df_pca_pd = pd.DataFrame(df_pca, index = dataset.index, columns= ['input_' + str(j) for j in range(reduced_dim)])
-    return df_pca_pd
-
 def hypermodel(hp):
     depth = hp.Int('depth', min_value = 0, max_value = 10, step = 1)
     hidden_dim = hp.Int('hidden_dim', min_value = 0, max_value = 1000, step = 200)
@@ -138,15 +124,18 @@ def autoencoder_reduction_presplit(dataset, proj, dir, epoch = 10, max_trial=10)
     return df, autoencoder
 
 #dimensional reduction
-if dim_type == 0:
-    print('Performing PCA on the input data')
-    reduced_dim = 2
-    dataset = PCA_reduction_presplit(reduced_dim, trans)
-
-else:
+if dim_type == 1:
     print('Passing the input data into an optimized autoencoder')
     input_dim = len(scRNA.columns)
     dataset, model = autoencoder_reduction_presplit(scRNA, epoch = args.epoch, max_trial = args.max_trial, dir = args.dir, proj = args.proj)
     reduced_dim = len(dataset.columns)
+    dataset.to_csv(args.output[0])
+    model.save(filepath=args.model_file[0],overwrite=True)
 
-dataset.to_csv(args.output[0])
+else:
+    print('Reading the existing autoencoder')
+    model = tf.keras.models.load_model(args.model_file[0])
+    encoded = model.encoder(np.array(scRNA)).numpy()
+    dataset = pd.DataFrame(encoded, index = scRNA.index)
+    dataset.columns = ['input_' + str(j) for j in range(len(dataset.columns))]
+    dataset.to_csv(args.output[0])
