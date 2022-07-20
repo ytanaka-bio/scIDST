@@ -27,9 +27,23 @@ $ python reef_analysis.py reduced_data.csv label.csv age -o age_plabel.csv
 $ python reef_analysis.py reduced_data.csv label.csv sex -o sex_plabel.csv
 $ python convert_label.py -f disease age sex -w disease_plabel.csv age_plabel.csv sex_plabel.csv -p label.csv -o label_ws.csv
 ```
-3. Training a neural network model with probablistic label
+3. Training a neural network model with probablistic label. train command generates one model directory `<prefix>_model/` and one prediction file `<prefix>_result.csv`.
 ```{r eval=FALSE}
-
+$ python classifier_analysis.py train -i reduced_data.csv -p label_ws.csv -o train -t 8 #Generate train_model directory and train_result.csv file
+```
+### optional
+3.1. Training a neural network model with binary label (Supervised learning mode).
+```{r eval=FALSE}
+$ python classifier_analysis.py train -i reduced_data.csv -p label.csv -o train_bin -t 8 
+```
+3.2. Evaluating the performance of the learning model with `-l` option that generates two additional files: `<prefix>_test.csv` and `<prefix>_predict.csv`.
+```{r eval=FALSE}
+$ python classifier_analysis.py train -i reduced_data.csv -p label_ws.csv -o train -t 8 -l 
+```
+Then, draw ROC curve using `plot_ROC.R` in `R_utils` directory.
+```{r eval=FALSE}
+> source("R_utils/plot_ROC.R")
+> plot_ROC("train_test.csv","train_predict.csv")
 ```
 
 ## Tips
@@ -47,6 +61,7 @@ AAACCGCGTTACATCC-1_1       0   1   1
 > write.table(label,"label.csv",sep=",",quote=F,col.names=NA)
 ```
 ### Convert Seurat object to the sparse matrix file set
+If quality control is performed by Seurat, please generate sparse matrix file set using `sgMatrix_table.R` script in `R_utils` directory.
 ```{r eval=FALSE}
 > source("R_utils/sgMatrix_table.R") #Require Seurat, Matrix, and R.utils libraries.
 > sgMatrix_table(seurat,"matrix")
