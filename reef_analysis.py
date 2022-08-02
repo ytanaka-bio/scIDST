@@ -13,8 +13,7 @@ warnings.filterwarnings("ignore")
 parser = argparse.ArgumentParser(description='Calculate probablistic label from automatically-generated heuristic',formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
 parser.add_argument('-o', help='output file name',default="<feature>_plabel.csv",type=str,dest="output")
-parser.add_argument('-t', help='ratio of test dataset', default=0.2, type=float, dest="ratio_test")
-parser.add_argument('-v', help='ratio of validation dataset', default=0.2, type=float, dest="ratio_val")
+parser.add_argument('-v', help='ratio of validation dataset', default=0.1, type=float, dest="ratio_val")
 parser.add_argument('-b', help='beta parameter for heuristic generator', default=0.5, type=float, dest="beta")
 parser.add_argument('-i', help='max iteration for synthesize-prune-verify process', default=50, type=int,dest="iter")
 parser.add_argument('-r', help='Number of runs of reef program', default=10, type=int,dest="run")
@@ -46,12 +45,11 @@ dindex = dataframe.columns
 dataout = pd.read_csv(phenofile,index_col=0)
 dataframe = dataframe.combine_first(dataout)
 
-def run_reef(dataframe,dindex,label,iter=50, t_size=0.2, v_size=0.2):
+def run_reef(dataframe,dindex,label,iter=50, v_size=0.1, beta=0.5):
     dataframe = dataframe.copy()
     reef_result = dataframe.loc[:,label]
     
-    train, test = train_test_split(dataframe, test_size=t_size)
-    train, val = train_test_split(train, test_size=v_size)
+    train, val = train_test_split(dataframe, test_size=v_size)
 
     train_matrix = train.loc[:,dindex].to_numpy()
     val_matrix = val.loc[:,dindex].to_numpy()
@@ -63,7 +61,7 @@ def run_reef(dataframe,dindex,label,iter=50, t_size=0.2, v_size=0.2):
     val_ground = (val_ground * 2) - 1
 
     from program_synthesis.heuristic_generator import HeuristicGenerator
-    hg = HeuristicGenerator(train_matrix, val_matrix, val_ground, train_ground, b=0.5)
+    hg = HeuristicGenerator(train_matrix, val_matrix, val_ground, train_ground, b=beta)
 
     validation_accuracy = []
     training_accuracy = []
@@ -106,7 +104,7 @@ def run_reef(dataframe,dindex,label,iter=50, t_size=0.2, v_size=0.2):
 #convert disease and age label to probablistic label
 result = []
 for x in range(0,args.run):
-    result.append(np.array(run_reef(dataframe, dindex, feature, args.iter, args.ratio_test, args.ratio_val)))
+    result.append(np.array(run_reef(dataframe, dindex, feature, args.iter, args.ratio_val, args.beta)))
 
 result = pd.DataFrame(result).transpose()
 result.index = dataframe.index
