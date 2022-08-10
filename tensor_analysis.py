@@ -26,8 +26,9 @@ parser_train.add_argument('-z', help='optimizer function', nargs=1, default="Ada
 parser_train.add_argument('-f', help='loss function', nargs = 1, default="binary_crossentropy",type=str,dest="loss_function")
 parser_train.add_argument('-m', help='metrics',nargs = 1, default='accuracy',type=str,dest="metrics")
 parser_train.add_argument('-e', help='epoch',nargs=1,type=int, default=100,dest='epoch')
-parser_train.add_argument('-a', help='activation function in each layer', nargs='*',type=str,default=["relu","relu","relu"],dest="act_function")
-parser_train.add_argument('-n', help='number of node in each layer', nargs='*',type=int,default=[500,250,50],dest="node")
+parser_train.add_argument('-a', help='activation function in each hidden layer', nargs='*',type=str,default=["relu","relu","relu"],dest="act_function")
+parser_train.add_argument('-n', help='number of node in each hidden layer', nargs='*',type=int,default=[500,250,50],dest="node")
+parser_train.add_argument('-u', help='activation function in output layer', nargs=1,type=str,default='softmax',dest="act_out")
 parser_train.add_argument('-l', help='Evaluate model?',action='store_true',default=False,dest="eval")
 parser_train.add_argument('-t', help="number of threads",default=1,type=int,dest="thread")
 
@@ -73,7 +74,7 @@ def model_creation(input_layer, num_outnode):
     for i in range(0,num_layer):
       model.add(layers.Dense(args.node[i], activation=args.act_function[i]))
       
-  model.add(layers.Dense(num_outnode, activation='sigmoid'))   
+  model.add(layers.Dense(num_outnode, activation=args.act_out))   
   return model
 
 ###############################################################################
