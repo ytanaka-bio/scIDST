@@ -61,6 +61,56 @@ AAACAGCCACAACAAA-1_1       0   0   0
 AAACATGCAATAACGA-1_1       0   0   0
 AAACCGAAGGACCGCT-1_1       0   0   0
 ```
+3.4. Since hyperparameter tuning spends large time, users want to test the classification model with defined parameteres. Another python script, `tensor_analysis.py`, can generate artifical neural network with user-defined parameters.
+```{r eval=FALSE}
+usage: tensor_analysis.py [-h]  {train,predict} ...
+
+Run deep learning with supervised or weekly-supervised mode
+
+positional arguments:
+  mode             Choose learning mode
+  {train,predict}  sub-command help
+    train          training of learning model
+    predict        prediction by learning model
+
+optional arguments:
+  -h, --help       show this help message and exit
+[ytanaka@cdr1793 github]$ python tensor_analysis.py train -h
+usage: tensor_analysis.py train [-h] [-i DATA_FILE] [-p PHENOTYPE_FILE]
+                                [-o OUT_FILE] [-v RATIO_VAL] [-s RATIO_TEST]
+                                [-b BATCH_SIZE] [-r LEARNING_RATE]
+                                [-z OPT_FUNCTION] [-f LOSS_FUNCTION]
+                                [-m METRICS] [-e EPOCH]
+                                [-a [ACT_FUNCTION [ACT_FUNCTION ...]]]
+                                [-n [NODE [NODE ...]]] [-l] [-t THREAD]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -i DATA_FILE          data filename (default: None)
+  -p PHENOTYPE_FILE     phenotype filename (default: None)
+  -o OUT_FILE           output prefix (<prefix>_test.csv (with -l option),
+                        <prefix>_predict.csv (with -l option),
+                        <prefix>_result.csv, and <prefix>_model/) (default:
+                        None)
+  -v RATIO_VAL          ratio of validation dataset (default: 0.2)
+  -s RATIO_TEST         ratio of test dataset (default: 0.2)
+  -b BATCH_SIZE         batch size (default: 2048)
+  -r LEARNING_RATE      learning rate (default: 0.0001)
+  -z OPT_FUNCTION       optimizer function (default: Adam)
+  -f LOSS_FUNCTION      loss function (default: binary_crossentropy)
+  -m METRICS            metrics (default: accuracy)
+  -e EPOCH              epoch (default: 100)
+  -a [ACT_FUNCTION [ACT_FUNCTION ...]]
+                        activation function in each layer (default: ['relu',
+                        'relu', 'relu'])
+  -n [NODE [NODE ...]]  number of node in each layer (default: [500, 250, 50])
+  -l                    Evaluate model? (default: False)
+  -t THREAD             number of threads (default: 1)
+```
+Instead of `classifier_analysis.py`, train the neural network by `tensor_analysis.py`.
+```{r eval=FALSE}
+$ python tensor_analysis.py train -i reduced_data.csv -p label_ws.csv -o train_fixedparam 
+```
 
 ## Tips
 ### Prepare binary label in R
