@@ -23,7 +23,9 @@ parser_train.add_argument('-s', help='ratio of test dataset', nargs=1, default=0
 parser_train.add_argument('-b', help='batch size', nargs=1, default=2048, type=int, dest="batch_size")
 parser_train.add_argument('-e', help='epoch',nargs=1,type=int, default=20,dest='epoch')
 parser_train.add_argument('-l', help='Evaluate model?',action='store_true',default=False,dest="eval")
-parser_train.add_argument('-m', help="Max trial",nargs=1,type=int, default=200,dest="max_trial")
+parser_train.add_argument('-x', help="Max trial",nargs=1,type=int, default=200,dest="max_trial")
+parser_train.add_argument('-m', help='metrics',nargs = 1, default='accuracy',type=str,dest="metrics")
+parser_train.add_argument('-u', help='activation function in output layer', nargs=1,type=str,default='softmax',dest="act_out")
 parser_train.add_argument('-t', help="number of threads",default=1,type=int,dest="thread")
 parser_train.add_argument('-d', help='directory for model tuning', default='model_autoencoder_hyperparam_tuning_trans', type=str, dest="dir")
 
@@ -78,11 +80,11 @@ def build_model(depth, hidden_dim, act_fct, opt, loss_fct, drop, learning_rate, 
     
   model.add(layers.Dropout(drop))
   
-  model.add(layers.Dense(out_dim, activation = 'softmax')) # CHANGE ACCORDING TO OUTPUT WE WANT TO PREDICT
+  model.add(layers.Dense(out_dim, activation = 'sigmoid')) # CHANGE ACCORDING TO OUTPUT WE WANT TO PREDICT
   model.compile(
     optimizer = opt,
     loss = loss_fct,
-    metrics = ['accuracy']) #hp.Choice('metric', ['accuracy', 'precision', 'recall'])
+    metrics = [args.metrics]) #hp.Choice('metric', ['accuracy', 'precision', 'recall'])
   return model
 
 #1.3. convert dataset format
