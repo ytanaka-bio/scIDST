@@ -77,12 +77,14 @@ def build_model(depth, hidden_dim, act_fct, opt, loss_fct, drop, learning_rate, 
   model = keras.Sequential(feature_layer) 
   for i in range(1, depth):
     model.add(layers.Dense(hidden_dim, activation = act_fct))
-    
   model.add(layers.Dropout(drop))
-  
   model.add(layers.Dense(out_dim, activation = 'sigmoid')) # CHANGE ACCORDING TO OUTPUT WE WANT TO PREDICT
+  if opt == "adam":
+    optimizer=keras.optimizers.Adam(learning_rate=learning_rate)
+  elif opt == "sgd":
+    optimizer=keras.optimizers.SGD(learning_rate=learning_rate)
   model.compile(
-    optimizer = opt,
+    optimizer = optimizer,
     loss = loss_fct,
     metrics = [args.metrics]) #hp.Choice('metric', ['accuracy', 'precision', 'recall'])
   return model
