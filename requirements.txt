@@ -6,8 +6,7 @@ sklearn
 keras
 keras_tuner
 scipy
-cuda-python
-sys
+os-sys
 argparse
 
 ###### Requirements with Version Specifiers ######
