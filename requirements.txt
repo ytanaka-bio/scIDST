@@ -6,7 +6,6 @@ sklearn
 keras
 keras_tuner
 scipy
-os-sys
 argparse
 
 ###### Requirements with Version Specifiers ######
