@@ -139,7 +139,7 @@ python reef_analysis.py reduced_data.csv label.csv disease -o disease_plabel.csv
 ```
 For detail of beta value, please see [Reef/Snuba](https://github.com/HazyResearch/reef/blob/master/%5B1%5D%20generate_reef_labels.ipynb).
 ## Citation
-Paper in preparation
+Wehbe et al., under preparation
 
 ## Reference
 - L. Adams, M.K. Song, Y. Tanaka# and Y.-S. Kim#, Single-nuclei paired multiomic analysis of young, aged, and Parkinson's disease human midbrain reveals age-associated glial changes and their contribution to Parkinson's disease, [medRxiv](https://www.medrxiv.org/content/10.1101/2022.01.18.22269350v4), #Co-corresponding authors
