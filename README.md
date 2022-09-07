@@ -132,7 +132,12 @@ If quality control is performed by Seurat, please generate sparse matrix file se
 > source("R_utils/sgMatrix_table.R") #Require Seurat, Matrix, and R.utils libraries.
 > sgMatrix_table(seurat,"matrix")
 ```
-
+### Calculation of probabilistic label
+If you encounter error in reef_analysis.py, please adjust beta value threshold with `-b` option. 
+```
+python reef_analysis.py reduced_data.csv label.csv disease -o disease_plabel.csv -b 0.3
+```
+For detail of beta value, please see [Reef/Snuba](https://github.com/HazyResearch/reef/blob/master/%5B1%5D%20generate_reef_labels.ipynb).
 ## Citation
 Paper in preparation
 
