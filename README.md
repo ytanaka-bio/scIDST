@@ -138,6 +138,13 @@ If you encounter error in reef_analysis.py, please adjust beta value threshold w
 python reef_analysis.py reduced_data.csv label.csv disease -o disease_plabel.csv -b 0.3
 ```
 For detail of beta value, please see [Reef/Snuba](https://github.com/HazyResearch/reef/blob/master/%5B1%5D%20generate_reef_labels.ipynb).
+
+### If your system does not have `libgfortran.so.4`, you can use this shared library in CellRanger. If you unpack CellRanger in your home directory, please prepend external/anaconda/lib directory into LD_LIBRARY_PATH as follow:
+```
+tar xvfz cellranger-X.X.X.tar.gz
+export LD_LIBRARY_PATH=~/cellranger-X.X.X/external/anaconda/lib/:$LD_LIBRARY_PATH     # X.X.X corresponds to version of CellRanger, which you downloaded.
+```
+
 ## Citation
 Wehbe et al., under preparation
 
