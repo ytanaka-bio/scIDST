@@ -7,5 +7,6 @@ keras
 keras_tuner
 scipy
 argparse
+psutil
 
 ###### Requirements with Version Specifiers ######
