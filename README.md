@@ -147,7 +147,7 @@ export LD_LIBRARY_PATH=~/cellranger-X.X.X/external/anaconda/lib/:$LD_LIBRARY_PAT
 ```
 
 ## Citation
-Wehbe et al., under preparation
+F. Wehbe, L. Adams, S. Yuen, Y.-S. Kim and Y. Tanaka, Single-Cell Identification of Disease Progressive Stages Using Weakly-Supervised Deep Learning, submitted
 
 ## Reference
 - L. Adams, M.K. Song, Y. Tanaka# and Y.-S. Kim#, Single-nuclei paired multiomic analysis of young, aged, and Parkinson's disease human midbrain reveals age-associated glial changes and their contribution to Parkinson's disease, [medRxiv](https://www.medrxiv.org/content/10.1101/2022.01.18.22269350v4), #Co-corresponding authors
