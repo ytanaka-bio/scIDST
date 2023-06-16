@@ -18,7 +18,7 @@ Map raw sequence data to reference genome by [CellRanger](https://support.10xgen
 ## Get Started
 1. Dimensional Reduction by autoencoder (multi thread (-t) is recommended)
 ```{r eval=FALSE}
-$ python autoencoder.py matrix/outs/filtered_feature_bc_matrix/ reduced_data.csv auto_model -x 100 -t 8 -p autoencode
+$ python autoencoder.py matrix/outs/filtered_feature_bc_matrix/ reduced_data.csv auto_model -x 100 -t 8 -d autoencode
 ```
 2. Convertion of binary label into probablistic label
 ```{r eval=FALSE}
