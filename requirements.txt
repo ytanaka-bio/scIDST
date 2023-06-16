@@ -3,6 +3,7 @@ numpy
 pandas
 tensorflow
 sklearn
+scikit-learn
 keras
 keras_tuner
 scipy
