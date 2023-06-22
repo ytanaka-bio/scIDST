@@ -4,7 +4,7 @@ scIDST is designed to identify progressive disease states of individual cells fr
 ![alt text](model.png)
 
 ## Requirement
-The Python package requirements are in the file `requirements.txt`.
+The Python package requirements are in the file `requirements.txt`. The program was tested in python 3.10.
 
 ## Downloading
 ```{r eval=FALSE}
