@@ -19,7 +19,7 @@ args = parser.parse_args()
 #definition
 def convert_label(dataframe, feature, prob_file):
   dataframe = dataframe.copy()
-  prob = pd.read_csv(prob_file)
+  prob = pd.read_csv(prob_file,index_col=0)
   prob_mean = prob.mean(axis=1)
   dataframe.loc[:,feature] = np.array(prob_mean)
   return dataframe
