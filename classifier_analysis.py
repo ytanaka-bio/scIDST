@@ -34,6 +34,7 @@ parser_predict.add_argument('-i',nargs=1,help='data filename',type=argparse.File
 parser_predict.add_argument('-p',nargs=1,help='temporary phenotype filename',type=argparse.FileType('r'),dest="phenotype_file")
 parser_predict.add_argument('-d',nargs=1,help='model directory',type=str,dest="model_file")
 parser_predict.add_argument('-o',nargs=1,help='output filename',type=str,dest="out_file")
+parser_predict.add_argument('-b', help='batch size', default=2048, type=int, dest="batch_size")
 parser_predict.add_argument('-t', help="number of threads",default=1,type=int,dest="thread")
 
 
