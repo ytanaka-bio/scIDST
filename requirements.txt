@@ -1,7 +1,7 @@
 ###### Requirements without Version Specifiers ######
 numpy
 pandas
-tensorflow
+tensorflow==2.15.1
 scikit-learn
 keras
 keras_tuner
