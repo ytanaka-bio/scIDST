@@ -147,8 +147,8 @@ export LD_LIBRARY_PATH=~/cellranger-X.X.X/external/anaconda/lib/:$LD_LIBRARY_PAT
 ```
 
 ## Citation
-F. Wehbe, L. Adams, S. Yuen, Y.-S. Kim and Y. Tanaka, Inferring Disease Progressive Stages in Single-Cell Transcriptomics Using Weakly-Supervised Deep Learning Approach, [bioRxiv](https://www.biorxiv.org/content/10.1101/2023.12.01.569595v1.full.pdf)
+F. Wehbe, L. Adams, S. Yuen, Y.-S. Kim and Y. Tanaka, Inferring Disease Progressive Stages in Single-Cell Transcriptomics Using Weakly-Supervised Deep Learning Approach, [***Genome Research***](doi: 10.1101/gr.278812.123)
 
 ## Reference
-- L. Adams, M.K. Song, Y. Tanaka# and Y.-S. Kim#, Single-nuclei paired multiomic analysis of young, aged, and Parkinson's disease human midbrain reveals age-associated glial changes and their contribution to Parkinson's disease, [medRxiv](https://www.medrxiv.org/content/10.1101/2022.01.18.22269350v4), #Co-corresponding authors
-- P. Varma, C. Re, Snuba: automating weak supervision to label training data. Processings of VLDB Endowment 12, 223-236 (2018). [PubMed](https://pubmed.ncbi.nlm.nih.gov/31777681/)
+- L. Adams, M.K. Song, Y. Tanaka# and Y.-S. Kim#, Single-nuclei paired multiomic analysis of young, aged, and Parkinson's disease human midbrain reveals age-associated glial changes and their contribution to Parkinson's disease, ***Nat Aging.*** 2024 Mar;4(3):364-378 [PubMed](https://pubmed.ncbi.nlm.nih.gov/38491288/) #Co-corresponding authors
+- P. Varma, C. Re, Snuba: automating weak supervision to label training data. ***Proceedings VLDB Endowment.*** 2018 Nov;12(3):223-236 [PubMed](https://pubmed.ncbi.nlm.nih.gov/31777681/)
