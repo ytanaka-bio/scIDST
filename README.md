@@ -145,6 +145,8 @@ If your system does not have `libgfortran.so.4`, you can use this shared library
 tar xvfz cellranger-X.X.X.tar.gz
 export LD_LIBRARY_PATH=~/cellranger-X.X.X/external/anaconda/lib/:$LD_LIBRARY_PATH     # X.X.X corresponds to version of CellRanger, which you downloaded.
 ```
+## Other troubleshooting
+Please see our [wiki](https://github.com/ytanaka-bio/scIDST/wiki)
 
 ## Citation
 F. Wehbe, L. Adams, J. Babadoudou, S. Yuen, Y.-S. Kim and Y. Tanaka, Inferring Disease Progressive Stages in Single-Cell Transcriptomics Using Weakly-Supervised Deep Learning Approach, ***Genome Research***(doi: 10.1101/gr.278812.123)
