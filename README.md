@@ -149,7 +149,7 @@ export LD_LIBRARY_PATH=~/cellranger-X.X.X/external/anaconda/lib/:$LD_LIBRARY_PAT
 Please see our [wiki](https://github.com/ytanaka-bio/scIDST/wiki)
 
 ## Citation
-F. Wehbe, L. Adams, J. Babadoudou, S. Yuen, Y.-S. Kim and Y. Tanaka, Inferring Disease Progressive Stages in Single-Cell Transcriptomics Using Weakly-Supervised Deep Learning Approach, ***Genome Research***(doi: 10.1101/gr.278812.123)
+F. Wehbe, L. Adams, J. Babadoudou, S. Yuen, Y.-S. Kim and Y. Tanaka, Inferring Disease Progressive Stages in Single-Cell Transcriptomics Using Weakly-Supervised Deep Learning Approach, [***Genome Research***(doi: 10.1101/gr.278812.123)](https://genome.cshlp.org/content/early/2024/12/02/gr.278812.123.full.pdf+html)
 
 ## Reference
 - L. Adams, M.K. Song, Y. Tanaka# and Y.-S. Kim#, Single-nuclei paired multiomic analysis of young, aged, and Parkinson's disease human midbrain reveals age-associated glial changes and their contribution to Parkinson's disease, ***Nat Aging.*** 2024 Mar;4(3):364-378 [PubMed](https://pubmed.ncbi.nlm.nih.gov/38491288/) #Co-corresponding authors
