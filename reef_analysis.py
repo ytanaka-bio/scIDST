@@ -17,6 +17,7 @@ parser.add_argument('-v', help='ratio of validation dataset', default=0.1, type=
 parser.add_argument('-b', help='beta parameter for heuristic generator', default=0.5, type=float, dest="beta")
 parser.add_argument('-i', help='max iteration for synthesize-prune-verify process', default=50, type=int,dest="iter")
 parser.add_argument('-r', help='Number of runs of reef program', default=10, type=int,dest="run")
+parser.add_argument('-t', help='Number of thread',default=1, type=int, dest="thread")
 parser.add_argument('data_file',nargs=1,help='data filename',type=argparse.FileType('r'))
 parser.add_argument('phenotype_file',nargs=1,help='phenotype filename',type=argparse.FileType('r'))
 parser.add_argument('feature',nargs=1,help='feature, which want to be converted to probalistic label',type=str)
@@ -31,11 +32,13 @@ if args.output == "<feature>_plabel.csv":
 else:
     output = args.output
 
-
 #run main
 import numpy as np
 import pandas as pd
+from multiprocessing import Pool
 
+from time import sleep
+from itertools import repeat
 from scipy.stats import zscore
 from sklearn.model_selection import train_test_split
 
@@ -45,11 +48,12 @@ dindex = dataframe.columns
 dataout = pd.read_csv(phenofile,index_col=0)
 dataframe = dataframe.combine_first(dataout)
 
-def run_reef(dataframe,dindex,label,iter=50, v_size=0.1, beta=0.5):
-    dataframe = dataframe.copy()
-    reef_result = dataframe.loc[:,label]
+def run_reef(dataframe, dindex, label,iter=50, v_size=0.1, beta=0.5, seed=1):
+ 
+    dataframe2 = dataframe.copy()
+    reef_result = dataframe2.loc[:,label]
     
-    train, val = train_test_split(dataframe, test_size=v_size)
+    train, val = train_test_split(dataframe, test_size=v_size, random_state=seed)
 
     train_matrix = train.loc[:,dindex].to_numpy()
     val_matrix = val.loc[:,dindex].to_numpy()
@@ -102,11 +106,15 @@ def run_reef(dataframe,dindex,label,iter=50, v_size=0.1, beta=0.5):
     return reef_result
 
 #convert disease and age label to probablistic label
-result = []
-for x in range(0,args.run):
-    result.append(np.array(run_reef(dataframe, dindex, feature, args.iter, args.ratio_val, args.beta)))
-
-result = pd.DataFrame(result).transpose()
-result.index = dataframe.index
-result.to_csv(output)
-
+if __name__ == '__main__':
+    result = []
+    pool = Pool(args.thread)
+    value = zip(repeat(dataframe,args.run),repeat(dindex,args.run),repeat(feature,args.run),repeat(args.iter,args.run),repeat(args.ratio_val,args.run),repeat(args.beta,args.run),range(0,args.run))
+    print(value)
+    result = pool.starmap(run_reef,value)
+    
+    
+    result = pd.DataFrame(result).transpose()
+    result.index = dataframe.index
+    result.to_csv(output)
+    pool.close()
