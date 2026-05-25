@@ -34,7 +34,7 @@ $ python classifier_analysis.py train -i reduced_data.csv -p label_ws.csv -o tra
 ## Optional
 1.1. If you want to perform dimensional reduction with pre-trained autoencoder (e.g. `auto_model/` directory), run autoencoder.py with `-r 0` option:
 ```{r eval=FALSE}
-$ python classifier_analysis.py other_matrix/outs/filtered_feature_bc_matrix/ reduced_data_other.csv auto_model -r 0
+$ python autoencoder.py other_matrix/outs/filtered_feature_bc_matrix/ reduced_data_other.csv auto_model -r 0
 ```
 3.1. Training a neural network model with binary label (Supervised learning mode).
 ```{r eval=FALSE}
