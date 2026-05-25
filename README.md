@@ -42,7 +42,7 @@ $ python classifier_analysis.py train -i reduced_data.csv -p label.csv -o train_
 ```
 3.2. Evaluating the performance of the learning model with `-l` option that generates two additional files: `<prefix>_test.csv` and `<prefix>_predict.csv`.
 ```{r eval=FALSE}
-$ python classifier_analysis.py train -i reduced_data.csv -p label_ws.csv -o train -t 8 -l 
+$ python classifier_analysis.py train -i reduced_data.csv -p label_ws.csv -o train -t 8 
 ```
 Then, draw ROC curve using `plot_ROC.R` in `R_utils/` directory.
 ```{r eval=FALSE}
