@@ -14,7 +14,7 @@ parser.add_argument('-b', help='batch size', default=64, type=int, dest="batch_s
 parser.add_argument('-f', help='buffer size', default=1024, type=int, dest="buffer_size")
 parser.add_argument('-g', help='Learning rate', default=1e-3, dest="learning_rate")
 parser.add_argument('-v', help='Beta value',default=12.0,dest="beta")
-parser.add_argument('-i', help='Dimension of intermediate layers in encoder and decoder',default=[5000,1000],type=int,dest="intermediate_dim")
+parser.add_argument('-i', help='Dimension of intermediate layers in encoder and decoder',default=[5000,1000,500],type=int,dest="intermediate_dim")
 parser.add_argument('-l', help='Dimension of latent layers',default=200,type=int,dest="latent_dim")
 parser.add_argument('-n', help='number of cells used for autoencoder training',default=20000,type=int,dest="train_num")
 parser.add_argument('-s', help='number of split of cells when running autoencoder (larger number will use lower memory)',default=10,type=int,dest="split")
